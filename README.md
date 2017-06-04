@@ -22,8 +22,8 @@ compile 'com.tylenol.library:lifecyclin:0.1.2'
 
 <hr/>
 
-### Features
-##### Add User Defined LifecycleObserver to LifecycleRegistry
+## Features
+### Add User Defined LifecycleObserver to LifecycleRegistry
 
 First you should define class which inherits LifecycleObserver
 ```kotlin
@@ -32,12 +32,12 @@ var myListener = MyListener()
 class MyListener : LifecycleObserver { /**/ }
 ```
 
-- Before
+#### Before
 ```kotlin
 lifecycle.addObserver(myListener)
 ```
 
-- After
+#### After
 ```kotlin
 addObserver(myListener) // Method 1
 val myListener = MyListener().registerObserver(this) // Method 2
@@ -57,17 +57,17 @@ addLifecycleUnits(onCreate = doWhenCreate, onPause = doWhenPause)
 addLifecycleUnits(onResume = { toast("Resumed") }, onPause = { toast("Destroyed") })
 ```
 
-##### Check Lifecycle Status
+### Check Lifecycle Status
 check current lifecycle status and return true if current status is matched
 
-- Before
+#### Before
 ```kotlin
 if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)) {
   // Do something
 }
 ```
 
-- After
+#### After
 ```kotlin
 if (isCreated()) {
   // Do something cooler
