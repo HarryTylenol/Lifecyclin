@@ -3,6 +3,7 @@ package tylenol.lifecyclin
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleRegistryOwner
+import android.arch.lifecycle.OnLifecycleEvent
 import android.util.Log
 
 /**
@@ -29,11 +30,17 @@ fun LifecycleRegistryOwner.addLifecycleUnits(onCreate: (() -> Unit)? = null, onS
                                              onPause: (() -> Unit)? = null, onStop: (() -> Unit)? = null, onDestroy: (() -> Unit)? = null) {
     if (this.lifecycle != null)
         this.lifecycle.addObserver(object : LifecycleObserver {
+            @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
             fun doOnCreate() = onCreate?.invoke()
+            @OnLifecycleEvent(Lifecycle.Event.ON_START)
             fun doOnStart() = onStart?.invoke()
+            @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
             fun doOnResume() = onResume?.invoke()
+            @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
             fun doOnPause() = onPause?.invoke()
+            @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
             fun doOnStop() = onStop?.invoke()
+            @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
             fun doOnDestroy() = onDestroy?.invoke()
         })
     else Log.d("Lifecyclin", "No Lifecycle detected in this Owner!")

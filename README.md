@@ -17,7 +17,7 @@ repositories {
 
 And add library into module dependencies
 ```groovy
-compile 'com.tylenol.library:lifecyclin:0.1.2'
+compile 'com.tylenol.library:lifecyclin:0.1.3'
 ```
 
 <hr/>
