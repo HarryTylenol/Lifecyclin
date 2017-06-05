@@ -48,15 +48,6 @@ You can also add 2 more Observers as vararg
 addObserver(myListener, myLocationListener, myGoogleApiClientListener)
 ```
 
-You can define Units(functions) to each lifecycle components (Automatically Add it as Observer to LifecycleRegistry)
-```kotlin
-val doWhenCreate : Unit = { toast("Created") }
-val doWhenPause : Unit  = { toast("Paused") }
-addLifecycleUnits(onCreate = doWhenCreate, onPause = doWhenPause)
-
-addLifecycleUnits(onResume = { toast("Resumed") }, onPause = { toast("Destroyed") })
-```
-
 ### Check Lifecycle Status
 check current lifecycle status and return true if current status is matched
 
