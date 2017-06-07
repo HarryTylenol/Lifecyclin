@@ -1,8 +1,18 @@
 
 !["Lifecyclin"](/assets/lifecyclin-long.png)
 
-A Extension Lifecycle Management Android Library for Kotlin
-<hr/>
+A Extension of Android Lifecycle Management for Kotlin
+
+```kotlin
+init {
+       onStart {
+           service.start()
+       }
+       onResume {
+           service.refresh()
+       }
+ }
+```
 
 ### Get Started
 
@@ -16,10 +26,12 @@ repositories {
 ```
 
 And add library into module dependencies
+##### <!> You should use support lifecycle library beacuse it needed
 ```groovy
 compile 'com.tylenol.library:lifecyclin:0.1.3'
 ```
 
+<br/>
 <hr/>
 
 ## Features
@@ -27,7 +39,11 @@ compile 'com.tylenol.library:lifecyclin:0.1.3'
 
 First you should define class which inherits LifecycleObserver
 ```kotlin
-var myListener = MyListener()
+class SampleActivith : AppCompatActivity(), LifecycleRegistryOwner {
+    var myListener = MyListener()
+    // ...
+}
+
 // ...
 class MyListener : LifecycleObserver { /**/ }
 ```
@@ -45,16 +61,30 @@ val myListener = MyListener().registerObserver(this) // Method 2
 
 You can also add 2 more Observers as vararg
 ```kotlin
+addObserver(myListener).addObserver(myLocationListener).addObserver(myGoogleApiClientListener)
 addObserver(myListener, myLocationListener, myGoogleApiClientListener)
 ```
 
-You can define Units(functions) to each lifecycle components (Automatically Add it as Observer to LifecycleRegistry)
+Define Units(functions) to each lifecycle components at once (Automatically Add it as Observer to LifecycleRegistry)
 ```kotlin
-val doWhenCreate : Unit = { toast("Created") }
-val doWhenPause : Unit  = { toast("Paused") }
-addLifecycleUnits(onCreate = doWhenCreate, onPause = doWhenPause)
-
-addLifecycleUnits(onResume = { toast("Resumed") }, onPause = { toast("Destroyed") })
+init {
+    onCreate { }
+    onResume { }
+    onPause { }
+    onDestory { }
+}
+```
+```kotlin
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    
+    onResume { 
+    }
+    
+    onPause { 
+    }
+    
+}
 ```
 
 ### Check Lifecycle Status
