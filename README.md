@@ -28,7 +28,7 @@ repositories {
 And add library into module dependencies
 ##### <!> You should use support lifecycle library beacuse it needed
 ```groovy
-compile 'com.tylenol.library:lifecyclin:0.1.3'
+compile 'com.tylenol.library:lifecyclin:0.1.4'
 ```
 
 <br/>
