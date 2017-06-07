@@ -65,6 +65,7 @@ addObserver(myListener).addObserver(myLocationListener).addObserver(myGoogleApiC
 addObserver(myListener, myLocationListener, myGoogleApiClientListener)
 ```
 
+<<<<<<< HEAD
 Define Units(functions) to each lifecycle components at once (Automatically Add it as Observer to LifecycleRegistry)
 ```kotlin
 init {
@@ -87,6 +88,8 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
+=======
+>>>>>>> 9e2fc2947500398124e4589283eeff3c1a2c6c8a
 ### Check Lifecycle Status
 check current lifecycle status and return true if current status is matched
 
