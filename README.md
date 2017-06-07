@@ -71,7 +71,7 @@ init {
     onCreate { }
     onResume { }
     onPause { }
-    onDestory { }
+    onDestroy { }
 }
 ```
 ```kotlin
