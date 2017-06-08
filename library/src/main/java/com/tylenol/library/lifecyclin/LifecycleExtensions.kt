@@ -1,14 +1,13 @@
 package tylenol.lifecyclin
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.LifecycleRegistryOwner
+import android.arch.lifecycle.*
+import android.support.v7.app.AppCompatActivity
 
 /**
  * Created by baghyeongi on 2017. 6. 4..
  */
 
-fun <T : LifecycleRegistryOwner> T.addObserver(lifecycleObservers: LifecycleObserver) : T {
+fun <T : LifecycleRegistryOwner> T.addObserver(lifecycleObservers: LifecycleObserver): T {
     this.lifecycle.addObserver(lifecycleObservers)
     return this
 }
@@ -27,3 +26,5 @@ fun LifecycleRegistryOwner.isStart() = this.lifecycle.currentState.isAtLeast(Lif
 fun LifecycleRegistryOwner.isResumed() = this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
 fun LifecycleRegistryOwner.isInitialized() = this.lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)
 fun LifecycleRegistryOwner.isDestroyed() = this.lifecycle.currentState.isAtLeast(Lifecycle.State.DESTROYED)
+
+fun <T : ViewModel> T.asViewModel(appCompatActivity: AppCompatActivity) = ViewModelProviders.of(appCompatActivity).get(this.javaClass)

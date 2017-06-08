@@ -28,7 +28,7 @@ repositories {
 And add library into module dependencies
 ##### <!> You should use support lifecycle library beacuse it needed
 ```groovy
-compile 'com.tylenol.library:lifecyclin:0.1.4'
+compile 'com.tylenol.library:lifecyclin:0.2.0'
 ```
 
 <br/>
@@ -39,7 +39,7 @@ compile 'com.tylenol.library:lifecyclin:0.1.4'
 
 First you should define class which inherits LifecycleObserver
 ```kotlin
-class SampleActivith : AppCompatActivity(), LifecycleRegistryOwner {
+class SampleActivith : LifecycleCompatActivity() {
     var myListener = MyListener()
     // ...
 }
@@ -48,12 +48,6 @@ class SampleActivith : AppCompatActivity(), LifecycleRegistryOwner {
 class MyListener : LifecycleObserver { /**/ }
 ```
 
-#### Before
-```kotlin
-lifecycle.addObserver(myListener)
-```
-
-#### After
 ```kotlin
 addObserver(myListener) // Method 1
 val myListener = MyListener().registerObserver(this) // Method 2
@@ -68,20 +62,28 @@ addObserver(myListener, myLocationListener, myGoogleApiClientListener)
 Define Units(functions) to each lifecycle components at once (Automatically Add it as Observer to LifecycleRegistry)
 ```kotlin
 init {
-    onCreate { }
-    onResume { }
-    onPause { }
-    onDestroy { }
+    val listener : MyLocationListener
+    onCreate { 
+       listener = MyLocationListener()     
+    }
+    onStart { 
+       listener.start()
+    }
+    onStop { 
+       listener.stop()
+    }
 }
 ```
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     
-    onResume { 
+    val service = MyService()
+    onResume {
+        service.resume()
     }
-    
-    onPause { 
+    onPause {
+        service.pause()
     }
     
 }
@@ -90,16 +92,12 @@ override fun onCreate(savedInstanceState: Bundle?) {
 ### Check Lifecycle Status
 check current lifecycle status and return true if current status is matched
 
-#### Before
 ```kotlin
-if (lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)) {
-  // Do something
-}
+if (isCreated()) { // Do something cooler }
 ```
 
-#### After
+## ViewModel
+### From ViewModelProviders
 ```kotlin
-if (isCreated()) {
-  // Do something cooler
-}
+val myViewModel = MyViewModel().asViewModel(this) // 'this' is AppCompatActivity
 ```
