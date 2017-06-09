@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.tylenol.library.lifecyclin.classes.LifecycleCompatActivity
 import com.tylenol.library.lifecyclin.onCreate
 import com.tylenol.lifecyclinsample.extension.UserList
+import com.tylenol.lifecyclinsample.extension.toast
 import com.tylenol.lifecyclinsample.model.User
 import com.tylenol.lifecyclinsample.viewmodel.UserViewModel
 import tylenol.lifecyclin.asViewModel
@@ -39,7 +40,7 @@ class MainActivity : LifecycleCompatActivity() {
             // Update recyclerview when data change
             userViewModel.getUsers().initObserver(this) {
                 swipeRefreshLayout.isRefreshing = false
-
+                if (it != null) toast("${it.size} Users Fetched") else toast("User is Null")
                 (recyclerView.adapter as UserAdapter).updateUserList(it as UserList)
             }
 
