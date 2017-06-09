@@ -100,4 +100,7 @@ if (isCreated()) { // Do something cooler }
 ### From ViewModelProviders
 ```kotlin
 val myViewModel = MyViewModel().asViewModel(this) // 'this' is AppCompatActivity
+myViewModel.getUsers().initObserver(this) {
+    user -> doSomething(user)
+}
 ```
