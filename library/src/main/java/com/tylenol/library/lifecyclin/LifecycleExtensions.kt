@@ -28,3 +28,8 @@ fun LifecycleRegistryOwner.isInitialized() = this.lifecycle.currentState.isAtLea
 fun LifecycleRegistryOwner.isDestroyed() = this.lifecycle.currentState.isAtLeast(Lifecycle.State.DESTROYED)
 
 fun <T : ViewModel> T.asViewModel(appCompatActivity: AppCompatActivity) = ViewModelProviders.of(appCompatActivity).get(this.javaClass)
+fun <T> LiveData<T>.initObserver(lifecycleRegistryOwner: LifecycleRegistryOwner, unit: (T?) -> Unit) {
+    this.observe(lifecycleRegistryOwner, object : Observer<T> {
+        override fun onChanged(_object: T?) = unit.invoke(_object)
+    })
+}
