@@ -39,7 +39,7 @@ compile 'com.tylenol.library:lifecyclin:0.2.1'
 
 First you should define class which inherits LifecycleObserver
 ```kotlin
-class SampleActivith : LifecycleCompatActivity() {
+class SampleActivity : LifecycleCompatActivity() {
     var myListener = MyListener()
     // ...
 }
